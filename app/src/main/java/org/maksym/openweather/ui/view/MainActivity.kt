@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(org.maksym.openweather.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -43,6 +43,10 @@ class MainActivity : AppCompatActivity() {
 
             errorMessage.observe(this@MainActivity, {
                 Toast.makeText(this@MainActivity, "Error: $it", Toast.LENGTH_SHORT).show()
+            })
+
+            loaded.observe(this@MainActivity, {
+                binding.progressDialog.visibility = if (it) View.GONE else View.VISIBLE
             })
         }
 

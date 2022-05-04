@@ -36,5 +36,4 @@ class ForecastsAdapter: RecyclerView.Adapter<ForecastsViewHolder>() {
     }
 }
 
-
 class ForecastsViewHolder(val binding: ForecastItemBinding) : RecyclerView.ViewHolder(binding.root) { }

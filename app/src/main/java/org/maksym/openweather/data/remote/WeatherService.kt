@@ -4,7 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.maksym.openweather.BuildConfig
 import org.maksym.openweather.data.model.ForecastResponse
-import retrofit2.Call
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -13,12 +13,12 @@ import retrofit2.http.Query
 interface WeatherService {
 
     @GET("/data/2.5/forecast/daily")
-    fun getWeatherForCoords(
+    suspend fun getWeatherForCoords(
         @Query("appid") appId: String,
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("cnt") count: Int
-    ): Call<ForecastResponse>
+    ): Response<ForecastResponse>
 
     companion object {
 
