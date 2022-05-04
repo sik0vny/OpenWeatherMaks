@@ -55,6 +55,10 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
 
+    implementation "org.koin:koin-androidx-scope:2.2.1"
+    implementation "org.koin:koin-androidx-fragment:2.2.1"
+    implementation "org.koin:koin-androidx-viewmodel:2.2.1"
+
     implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation "com.squareup.okhttp3:logging-interceptor:3.9.1"

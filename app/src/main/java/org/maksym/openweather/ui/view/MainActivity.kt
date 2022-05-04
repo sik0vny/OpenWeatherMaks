@@ -6,25 +6,20 @@ import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import org.maksym.openweather.data.remote.WeatherService
-import org.maksym.openweather.data.repository.WeatherRepository
 import org.maksym.openweather.databinding.ActivityMainBinding
 import org.maksym.openweather.ui.viewmodel.MainViewModel
-import org.maksym.openweather.ui.viewmodel.ViewModelFactory
 import android.widget.ArrayAdapter
 import org.maksym.openweather.ui.viewmodel.PLACES
 import android.text.Editable
 
 import android.text.TextWatcher
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.maksym.openweather.R
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
-
-    private val weatherService = WeatherService.getInstance()
+    private val viewModel: MainViewModel by viewModel()
     private var adapter = ForecastsAdapter()
 
 
@@ -34,8 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, ViewModelFactory(WeatherRepository(weatherService))).get(
-            MainViewModel::class.java).apply {
+        viewModel.apply {
 
             forecastsList.observe(this@MainActivity, {
                 adapter.setForecastsList(it)

@@ -16,7 +16,7 @@ val PLACES = hashMapOf(
     "Sydney"            to LatLon(33.8470241774331, 151.0624326592654)
 )
 
-class MainViewModel constructor(private val repository: WeatherRepository)  : ViewModel() {
+class MainViewModel constructor(private val repository: WeatherRepository) : ViewModel() {
     val forecastsList = MutableLiveData<List<Forecast>>()
     val errorMessage = MutableLiveData<String>()
 
