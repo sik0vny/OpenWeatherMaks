@@ -13,7 +13,7 @@ import retrofit2.Response
 val PLACES = hashMapOf(
     "České Budějovice"  to LatLon(48.97378881915517, 14.476120512906416),
     "New York"          to LatLon(40.79052384606425, -73.95908688800822),
-    "Sydney"            to LatLon(33.8470241774331, 151.0624326592654)
+    "Sydney"            to LatLon(-33.8470241774331, 151.0624326592654)
 )
 
 class MainViewModel constructor(private val repository: WeatherRepository) : ViewModel() {

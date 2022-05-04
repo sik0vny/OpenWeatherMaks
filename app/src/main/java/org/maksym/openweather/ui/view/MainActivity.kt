@@ -47,8 +47,8 @@ class MainActivity : AppCompatActivity() {
         binding.run {
 
             fun requestForecasts() {
-                val placeName: String = binding.placeSpinner.getItemAtPosition(binding.placeSpinner.selectedItemPosition) as String
-                val count = Integer.parseInt(binding.daysEdit.text.toString())
+                val placeName: String = placeSpinner.getItemAtPosition(placeSpinner.selectedItemPosition) as String
+                val count = Integer.parseInt(daysEdit.text.toString())
                 viewModel.getForecasts(placeName, count)
             }
 
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             placeSpinner.let {
                 val spinnerAdapter = ArrayAdapter(
                     this@MainActivity,
-                    android.R.layout.simple_spinner_item,
+                    R.layout.spinner_item,
                     PLACES.map { place -> place.key }
                 )
 
