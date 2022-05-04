@@ -7,8 +7,7 @@ import retrofit2.Call
 
 class WeatherRepository constructor(private val weatherService: WeatherService) {
 
-    fun getForecasts(latLon: LatLon): Call<ForecastResponse> {
-
-        return weatherService.getWeatherForCoords(WeatherService.appId, latLon.lat,  latLon.lon, 10)
+    fun getForecasts(latLon: LatLon, count: Int): Call<ForecastResponse> {
+        return weatherService.getWeatherForCoords(WeatherService.appId, latLon.lat,  latLon.lon, count)
     }
 }

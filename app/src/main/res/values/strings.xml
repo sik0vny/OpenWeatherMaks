@@ -2,4 +2,5 @@
     <string name="app_name">Počasí</string>
     <string name="place_label">Místo:</string>
     <string name="days_label">Počet dnů:</string>
+    <string name="validation_msg">"Enter valid digit [1–17]"</string>
 </resources>

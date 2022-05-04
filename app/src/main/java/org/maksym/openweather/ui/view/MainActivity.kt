@@ -14,6 +14,10 @@ import org.maksym.openweather.ui.viewmodel.MainViewModel
 import org.maksym.openweather.ui.viewmodel.ViewModelFactory
 import android.widget.ArrayAdapter
 import org.maksym.openweather.ui.viewmodel.PLACES
+import android.text.Editable
+
+import android.text.TextWatcher
+import org.maksym.openweather.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,28 +46,64 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-        binding.recyclerItemsView.adapter = adapter
+        binding.run {
 
-        binding.placeSpinner.let {
-            val spinnerAdapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                PLACES.map { place -> place.key }
-            )
-
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            it.adapter = spinnerAdapter
-
-            it.onItemSelectedListener = object : OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?, view: View, position: Int, id: Long
-                ) {
-                    val placeName: String = parent?.getItemAtPosition(position) as String
-                    viewModel.getForecasts(placeName)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            fun requestForecasts() {
+                val placeName: String = binding.placeSpinner.getItemAtPosition(binding.placeSpinner.selectedItemPosition) as String
+                val count = Integer.parseInt(binding.daysEdit.text.toString())
+                viewModel.getForecasts(placeName, count)
             }
+
+            fun validateInputs(executeIfValid: () -> Unit) {
+                val limit = 17 // this is an API limit
+                if (daysEdit.text.isEmpty() ||
+                    daysEdit.text.toString() == "-" ||
+                    daysEdit.text.toString().toInt() !in (1..limit)
+                ) {
+                    daysEdit.error = getString(R.string.validation_msg)
+                    recyclerItemsView.visibility = View.GONE
+                } else {
+                    daysEdit.error = null
+                    recyclerItemsView.visibility = View.VISIBLE
+                    executeIfValid.invoke()
+                }
+            }
+
+            recyclerItemsView.adapter = adapter
+
+            placeSpinner.let {
+                val spinnerAdapter = ArrayAdapter(
+                    this@MainActivity,
+                    android.R.layout.simple_spinner_item,
+                    PLACES.map { place -> place.key }
+                )
+
+                spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                it.adapter = spinnerAdapter
+
+                it.onItemSelectedListener = object : OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?, view: View, position: Int, id: Long
+                    ) {
+                        validateInputs { requestForecasts() }
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {}
+                }
+            }
+
+            daysEdit.addTextChangedListener(object : TextWatcher {
+                override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+
+                override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
+
+                override fun afterTextChanged(s: Editable) {
+                    validateInputs { requestForecasts() }
+                }
+            })
+
         }
+
     }
+
 }

@@ -21,8 +21,9 @@ class MainViewModel constructor(private val repository: WeatherRepository)  : Vi
     val forecastsList = MutableLiveData<List<Forecast>>()
     val errorMessage = MutableLiveData<String>()
 
-    fun getForecasts(placeName: String) {
-        val response = repository.getForecasts(PLACES[placeName]!!)
+    fun getForecasts(placeName: String, count: Int) {
+        val latLon = PLACES[placeName]!!
+        val response = repository.getForecasts(latLon, count)
 
         response.enqueue(object : Callback<ForecastResponse> {
             override fun onResponse(call: Call<ForecastResponse>, response: Response<ForecastResponse>) {
@@ -34,8 +35,4 @@ class MainViewModel constructor(private val repository: WeatherRepository)  : Vi
             }
         })
     }
-
-
-
-
 }
