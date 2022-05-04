@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Počasí</string>
+    <string name="place_label">Místo:</string>
+    <string name="days_label">Počet dnů:</string>
 </resources>
